@@ -13,7 +13,7 @@ A Discord bot created with [Discord.js](https://github.com/discordjs/discord.js)
 - Discord bot token
 
 ### Setup
-Change the last line inside `main.js` replacing `[Your token]` with your actual bot token:
+Change the last line inside `main.js` replacing `process.env.TOKEN` with your actual bot token:
 ```js
 client.login('[Your token]');
 ```
