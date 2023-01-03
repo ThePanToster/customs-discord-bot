@@ -33,7 +33,6 @@ jobs:
         host: ${{ secrets.CLOUD_VM_IP }}
         username: ${{ secrets.CLOUD_VM_USERNAME }}
         key: ${{ secrets.CLOUD_VM_SSHKEY }}
-        port: ${{ secrets.CLOUD_VM_PORT }}
         envs: TOKEN
         script: |
           cd /var/app/customs-discord-bot
