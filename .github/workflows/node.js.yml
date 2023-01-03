@@ -36,6 +36,6 @@ jobs:
         script: |
           pm2 delete all
           cd /var/app/customs-discord-bot
-          sudo git pull
-          sudo npm install
+          git pull
+          npm install
           pm2 start npm -- start
