@@ -28,11 +28,13 @@ jobs:
     - name: SSH Remote Commands
       uses: appleboy/ssh-action@v0.1.6
       env:
-        TOKEN: ${{secrets.TOKEN}}
+        TOKEN: ${{ secrets.TOKEN }}
       with:
-        key: ${{secrets.CLOUD_VM_SSHKEY}}
-        host: ${{secrets.CLOUD_VM_IP}}
-        username: ${{secrets.CLOUD_VM_USERNAME}}
+        host: ${{ secrets.CLOUD_VM_IP }}
+        username: ${{ secrets.CLOUD_VM_USERNAME }}
+        key: ${{ secrets.CLOUD_VM_SSHKEY }}
+        port: ${{ secrets.CLOUD_VM_PORT }}
+        envs: TOKEN
         script: |
           cd /var/app/customs-discord-bot
           git pull
