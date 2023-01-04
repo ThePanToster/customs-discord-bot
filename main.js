@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const prefix = '?';
 const fs = require('fs');
 client.commands = new Discord.Collection();
+require('dotenv').config();
 
 // Wczytywanie skryptów z komendami
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
