@@ -10,7 +10,7 @@
   "author": "Albert Ząbkiewicz",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.4.0",
+    "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "js-yaml": "^3.13.1"
   }
