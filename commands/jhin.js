@@ -20,13 +20,17 @@ module.exports = {
         }),
     async execute(interaction) {
         let message = '';
-        if(interaction.user.id !== '229219961296519169')
+        let embedColor = 0x76675b;
+
+        if(interaction.user.id !== '229219961296519169') {
+            embedColor = 0xff0000;
             message = locales[interaction.locale].warning ?? 'You\'re not worthy';
+        }
         else
             message = (locales[interaction.locale].choosing ?? 'Pick ') + skins[los];
 
         await interaction.reply({ embeds: [{
-            color: 0x76675b,
+            color: embedColor,
             author: {
                 name: 'Customs discord bot',
                 icon_url: 'https://i.imgur.com/PSqNTSc.png',

@@ -25,6 +25,7 @@ module.exports = {
                 })),
     async execute(interaction) {
         let message = '';
+        const embedColor = 0x76675b;
         try{
             message = `${interaction.options._hoistedOptions[0].value}`;
         }
@@ -32,7 +33,7 @@ module.exports = {
             message = (locales[interaction.locale] ?? 'Hello ') + interaction.user.username;
         }
         await interaction.reply({ embeds: [{
-            color: 0x76675b,
+            color: embedColor,
             author: {
                 name: 'Customs discord bot',
                 icon_url: 'https://i.imgur.com/PSqNTSc.png',

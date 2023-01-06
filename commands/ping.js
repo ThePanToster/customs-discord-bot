@@ -9,8 +9,9 @@ module.exports = {
         }),
     async execute(interaction) {
         const message = 'pong!';
+        const embedColor = 0x76675b;
         await interaction.reply({ embeds: [{
-            color: 0x76675b,
+            color: embedColor,
             author: {
                 name: 'Customs discord bot',
                 icon_url: 'https://i.imgur.com/PSqNTSc.png',
