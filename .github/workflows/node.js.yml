@@ -37,6 +37,8 @@ jobs:
         script: |
           cd /var/app/customs-discord-bot
           pm2 delete "Customs discord bot"
+          git fetch origin main
+          git reset --hard origin/main
           git pull
           npm install
           TOKEN="$TOKEN" pm2 start main.js --name "Customs discord bot"
