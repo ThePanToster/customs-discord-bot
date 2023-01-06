@@ -19,9 +19,20 @@ module.exports = {
             pl: 'Losowanie jakiego skinka ma Błażej wybrać na Jhinie',
         }),
     async execute(interaction) {
+        let message = '';
         if(interaction.user.id !== '229219961296519169')
-            await interaction.reply(locales[interaction.locale].warning ?? 'You\'re not worthy');
+            message = locales[interaction.locale].warning ?? 'You\'re not worthy';
         else
-            await interaction.reply((locales[interaction.locale].choosing ?? 'Pick ') + skins[los]);
+            message = (locales[interaction.locale].choosing ?? 'Pick ') + skins[los];
+
+        await interaction.reply({ embeds: [{
+            color: 0x76675b,
+            author: {
+                name: 'Customs discord bot',
+                icon_url: 'https://i.imgur.com/PSqNTSc.png',
+                url: 'https://discord.com/api/oauth2/authorize?client_id=768137231344468012&permissions=1497332444241&scope=bot',
+            },
+            description: message,
+        }] });
     },
 };

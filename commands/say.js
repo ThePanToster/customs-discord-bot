@@ -24,11 +24,21 @@ module.exports = {
                     pl: 'Wiadomość, którą ma przekazać bot',
                 })),
     async execute(interaction) {
+        let message = '';
         try{
-            await interaction.reply(`${interaction.options._hoistedOptions[0].value}`);
+            message = `${interaction.options._hoistedOptions[0].value}`;
         }
         catch{
-            await interaction.reply((locales[interaction.locale] ?? 'Hello ') + interaction.user.username);
+            message = (locales[interaction.locale] ?? 'Hello ') + interaction.user.username;
         }
+        await interaction.reply({ embeds: [{
+            color: 0x76675b,
+            author: {
+                name: 'Customs discord bot',
+                icon_url: 'https://i.imgur.com/PSqNTSc.png',
+                url: 'https://discord.com/api/oauth2/authorize?client_id=768137231344468012&permissions=1497332444241&scope=bot',
+            },
+            description: message,
+        }] });
     },
 };

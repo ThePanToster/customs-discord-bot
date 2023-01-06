@@ -8,6 +8,15 @@ module.exports = {
             pl: 'Testowanie czy bot odpowiada',
         }),
     async execute(interaction) {
-        await interaction.reply('pong!');
+        const message = 'pong!';
+        await interaction.reply({ embeds: [{
+            color: 0x76675b,
+            author: {
+                name: 'Customs discord bot',
+                icon_url: 'https://i.imgur.com/PSqNTSc.png',
+                url: 'https://discord.com/api/oauth2/authorize?client_id=768137231344468012&permissions=1497332444241&scope=bot',
+            },
+            description: message,
+        }] });
     },
 };
