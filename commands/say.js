@@ -1,9 +1,9 @@
 const{ SlashCommandBuilder } = require('discord.js');
+const locales = {
+    pl: 'Witaj ',
+};
 
 module.exports = {
-    locales: {
-        pl: 'Witaj ',
-    },
     data: new SlashCommandBuilder()
         .setName('say')
         .setNameLocalizations({
@@ -28,7 +28,7 @@ module.exports = {
             await interaction.reply(`${interaction.options._hoistedOptions[0].value}`);
         }
         catch{
-            await interaction.reply((this.locales[interaction.locale] ?? 'Hello ') + interaction.user.username);
+            await interaction.reply((locales[interaction.locale] ?? 'Hello ') + interaction.user.username);
         }
     },
 };
