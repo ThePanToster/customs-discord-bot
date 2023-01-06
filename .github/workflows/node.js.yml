@@ -35,8 +35,8 @@ jobs:
         key: ${{ secrets.CLOUD_VM_SSHKEY }}
         envs: TOKEN
         script: |
-          pm2 delete all
           cd /var/app/customs-discord-bot
+          pm2 delete "Customs discord bot"
           git pull
           npm install
-          TOKEN="$TOKEN" pm2 start node -- .
+          TOKEN="$TOKEN" pm2 start main.js --name "Customs discord bot"

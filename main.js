@@ -1,79 +1,64 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const prefix = '?';
-const fs = require('fs');
-client.commands = new Discord.Collection();
+// Importing classes and declaring variables
 require('dotenv').config();
-
-// Wczytywanie skryptów z komendami
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-for(const file of commandFiles){
-    const command = require(`./commands/${file}`);
-
-
-    client.commands.set(command.name, command);
-}
-
-// Gdy bot będzie gotowy
-client.once('ready', () => {
-    console.log('Bocik jest online');
+const{ Client, Events, GatewayIntentBits, Collection } = require('discord.js');
+const fs = require('fs');
+const path = require('node:path');
+const token = process.env.TOKEN;
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+    ],
+    presence: {
+        activities: [{
+            name: '/help',
+            type: 2,
+        }],
+    },
 });
 
-// Niestandardowy status
-client.on("ready", () => {
-    client.user.setActivity("?help", { type: "LISTENING"})
-    // client.channels.fetch('768146932706574337')
-    // .then(channel => console.log(channel.name));
-})
 
-client.on('message', message =>{
-// Sprawdzanie czy to komenda a nie zwykła wiadomość i rozdzielanie argumentów
-    if(!message.content.startsWith(prefix) || message.author.bot) return;
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const command = args.shift().toLowerCase();
+// Loading all commands
+client.commands = new Collection();
+const commandsPath = path.join(__dirname, 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-// Sprawdzanie czy istnieje plik config dla tego serwera, jak nie to tworzy pusty
-    if(!fs.existsSync(`./configs/${message.guild.id}.json`)) fs.writeFileSync(`./configs/${message.guild.id}.json`, JSON.stringify({}), err => {
-        if (err) {
-            console.log(err);
-            message.channel.send(err);
-        }
-    })
+for(const file of commandFiles) {
+    const filePath = path.join(commandsPath, file);
+    const command = require(filePath);
+    if('data' in command && 'execute' in command)
+        client.commands.set(command.data.name, command);
+    else
+        console.log(`[UWAGA] Polecenie ${filePath} nie posiada własności "data" lub "execute".`);
+}
 
-// Sprawdzanie komend
-    if(command === 'ping'){
-        client.commands.get('ping').execute(message, args);
-    }
-    else if (command == 'teamy' || command == 't' || command == 'teams'){
-        client.commands.get('teamy').execute(message, args);
-    }
-    else if (command == 'konfig' || command == 'config' || command == 'konfiguracja'){
-        client.commands.get('konfig').execute(message, args, client);
-    }
-    else if (command == 'powiedz' || command == 'say'){
-        client.commands.get('powiedz').execute(message, args);
-    }
-    else if (command == 'przenies' || command == 'p' || command == 'move' || command == 'przenieś'){
-        client.commands.get('przenies').execute(message, args);
-    }
-    else if (command == 'role' || command == 'r' || command == 'roles'){
-        client.commands.get('role').execute(message, args);
-    }
-    else if (command == 'help' || command == 'pomoc'){
-        client.commands.get('help').execute(message, args);
-    }
-    else if (command == 'wroc' || command == 'wróć' || command == 'back' || command == 'b' || command == 'w'){
-        client.commands.get('wroc').execute(message, args);
-    }
-    else if (command == 'jhin'){
-        client.commands.get('jhin').execute(message, args);
-    }
-    else if (command == 'champ' || command == 'champion' || command == 'c' || command == 'postac' || command == 'postać'){
-        client.commands.get('champ').execute(message, args);
-    }
-    else if (command == 'pyke'){
-        client.commands.get('pyke').execute(message, args);
-    }
-})
 
-client.login(process.env.TOKEN);
+// When ready
+client.once(Events.ClientReady, c => {
+    console.log(`Bot pomyslnie zalogowany jako ${c.user.tag}`);
+});
+
+
+// Command handler
+client.on(Events.InteractionCreate, async interaction => {
+    if(!interaction.isChatInputCommand()) return;
+
+    const command = interaction.client.commands.get(interaction.commandName);
+
+    if(!command) {
+        console.error(`Nie znaleziono polecenia ${interaction.commandName}.`);
+        return;
+    }
+
+    try{
+        await command.execute(interaction);
+    }
+    catch(error) {
+        console.error(error);
+        await interaction.reply({ content: 'Wystąpił problem w uruchomieniu tego polecenia!', ephemeral: true });
+    }
+});
+
+
+// Log in via token
+client.login(token);
