@@ -9,6 +9,12 @@ const client = new Client({
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMembers,
     ],
+    presence: {
+        activities: [{
+            name: '/help',
+            type: 2,
+        }],
+    },
 });
 
 
