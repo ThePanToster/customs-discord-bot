@@ -13,9 +13,10 @@ A Discord bot created with [Discord.js](https://github.com/discordjs/discord.js)
 - Discord bot token
 
 ### Setup
-Create `.env` file inside the repository replacing `[Your token]` with your actual bot token:
+Create `.env` file inside the repository replacing `[Your token]` with your actual bot token and `[Your bot's ID]` with your bot's ID that you can get by right clicking it in discord with dev mode on:
 ```sh
 TOKEN = "[Your token]"
+CLIENTID = "[Your bot's ID]"
 ```
 
 ### Launch
