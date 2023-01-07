@@ -35,7 +35,7 @@ jobs:
         key: ${{ secrets.CLOUD_VM_SSHKEY }}
         envs: TOKEN
         script: |
-          cd /var/app/customs-discord-bot
+          cd ~/customs-discord-bot
           pm2 delete "Customs discord bot"
           git fetch origin main
           git reset --hard origin/main
