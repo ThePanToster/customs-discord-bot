@@ -24,10 +24,13 @@ module.exports = {
 
         if(interaction.user.id !== '229219961296519169') {
             embedColor = 0xff0000;
-            message = locales[interaction.locale].warning ?? 'You\'re not worthy';
+            message = locales[interaction.locale] ?? { warning: 'You\'re not worthy' };
+            message = message.warning;
         }
-        else
-            message = (locales[interaction.locale].choosing ?? 'Pick ') + skins[los];
+        else{
+            message = (locales[interaction.locale] ?? { choosing: 'Pick ' });
+            message = message.choosing + skins[los];
+        }
 
         await interaction.reply({ embeds: [{
             color: embedColor,
