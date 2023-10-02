@@ -8,6 +8,22 @@ const locales = {
         commandNotFound: 'Nie znaleziono polecenia o nazwie **',
     },
 };
+function getCommands(){
+    const commands = []
+    for(const file of commandFiles) {
+        const filePath = path.join(commandsPath, file);
+        const command = require(filePath);
+        if('data' in command && 'execute' in command){
+            commands.push({
+                name: command.data.name,
+                nameLocales: command.data.name_localizations ?? {},
+                description: command.data.description,
+                descriptionLocales: command.data.description_localizations,
+            });
+        }
+    }
+    return commands;
+}
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -31,32 +47,31 @@ module.exports = {
                 })),
     async execute(interaction) {
         let message = '';
-        const embedColor = 0x76675b;
+        let embedColor = 0x76675b;
+        
         try{
             const inputCommand = interaction.options._hoistedOptions[0].value;
-            for(const file of commandFiles) {
-                const filePath = path.join(commandsPath, file);
-                const command = require(filePath);
-                if('data' in command && 'execute' in command) {
-                    try{
-                        if(inputCommand === command.data.name_localizations[interaction.locale])
-                            message = '**' + `${command.data.name_localizations[interaction.locale]}` + '** - ' + (command.data.description_localizations[interaction.locale] ?? command.data.description);
-                    }
-                    catch{ 1; }
-                    if(inputCommand === command.data.name)
-                        message = '**' + `${command.data.name}` + '** - ' + (command.data.description_localizations[interaction.locale] ?? command.data.description);
-                }
+            const commands = getCommands();
+            commands.forEach(command => {
+                if(inputCommand === command.name && command.nameLocales[interaction.locale])
+                    message = '**' + command.name + '** - ' + command.description;
+                else if(inputCommand === command.nameLocales[interaction.locale])
+                    message = '**' + command.nameLocales[interaction.locale] + '** - ' + command.descriptionLocales[interaction.locale];
+                else if(inputCommand === command.name && !command.nameLocales[interaction.locale])
+                    message = '**' + command.name + '** - ' + command.descriptionLocales[interaction.locale];
+            });
+            if(message === ''){
+                embedColor = 0xff0000;
+                message = locales[interaction.locale] ?? {commandNotFound: 'Cannot find any information about **'};
+                message = message.commandNotFound + inputCommand + '**';
             }
-            if(message === '')
-                message = (locales[interaction.locale].commandNotFound ?? 'Cannot find any information about **') + inputCommand + '**';
         }
         catch(err) {
-            for(const file of commandFiles) {
-                const filePath = path.join(commandsPath, file);
-                const command = require(filePath);
-                if('data' in command && 'execute' in command)
-                    message += '\n**' + `${command.data.name}` + '** - ' + (command.data.description_localizations[interaction.locale] ?? command.data.description);
-            }
+            if(err.name !== 'TypeError') throw "An unknown error has occurred";
+            const commands = getCommands();
+            commands.forEach(command => {
+                message += '\n**' + `${command.nameLocales[interaction.locale] ?? command.name}` + '** - ' + (command.descriptionLocales[interaction.locale] ?? command.description);
+            });
         }
         await interaction.reply({ embeds: [{
             color: embedColor,
