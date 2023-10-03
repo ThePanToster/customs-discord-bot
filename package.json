@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
+    "deploycommands": "node deploy-commands.js",
     "test": "jest --watchAll --verbose"
   },
   "author": "Albert Ząbkiewicz",
