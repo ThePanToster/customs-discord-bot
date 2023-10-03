@@ -14,9 +14,11 @@ const setConfig = (guildId, config) => {
 
 const getConfig = (guildId) => {
   var config;
+
   try {
     config = require(`./${guildId}.json`);
   } catch (error) {
+    if (guildId === undefined) throw 'guildId cannot be undefined';
     setConfig(guildId, {
       channels: { team1: '', team2: '', waitRoom: '' },
       users: { team1: [], team2: [] },
