@@ -8,9 +8,14 @@ module.exports = {
       pl: 'Testowanie czy bot odpowiada',
     }),
   async execute(interaction) {
-    const message = 'Pong!';
     const embedColor = 0x76675b;
     const conf = require('../configs/config');
+    const message =
+      '🏓 Pong!\n> Latency: **' +
+      (Date.now() - interaction.createdTimestamp) +
+      '**ms\n> API Latency: **' +
+      Math.round(interaction.client.ws.ping) +
+      '**ms';
 
     await interaction.reply(conf.embedMessage(message, embedColor));
   },
