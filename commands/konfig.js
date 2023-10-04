@@ -92,7 +92,6 @@ module.exports = {
           'Response not received within 1 minute, cancelling',
         components: [],
       });
-      console.log(e);
     }
   },
 };

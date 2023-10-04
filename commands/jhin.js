@@ -1,8 +1,6 @@
-function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 const { SlashCommandBuilder } = require('discord.js');
-const los = getRndInteger(0, 4);
+const { getRandomInt } = require('../utils/random');
+
 const skins = ['High Noon', 'Blood Moon', 'SKT T1', 'Project', 'Dark Cosmic'];
 const locales = {
   pl: {
@@ -22,6 +20,7 @@ module.exports = {
     let message = '';
     let embedColor = 0x76675b;
     const conf = require('../configs/config');
+    const los = getRandomInt(0, skins.length - 1);
 
     if (interaction.user.id !== '229219961296519169') {
       embedColor = 0xff0000;
