@@ -3,19 +3,19 @@ const locales = {
   pl: [
     'Przed użyciem tego polecenia skonfiguruj kanały poleceniem /konfig',
     'Przeniesiono ',
-    ' graczy na <#',
+    ' graczy',
   ],
 };
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('back')
+    .setName('move')
     .setNameLocalizations({
-      pl: 'wróć',
+      pl: 'przenieś',
     })
-    .setDescription('Moves players from both teams to a wait room')
+    .setDescription('Moves players to team channels')
     .setDescriptionLocalizations({
-      pl: 'Przenosi graczy z obu drużyn do poczekalni',
+      pl: 'Przenosi graczy na kanały dwóch drużyn',
     }),
   async execute(interaction) {
     const conf = require('../configs/config');
@@ -42,21 +42,21 @@ module.exports = {
         config.channels.waitRoom
       );
       let moveCount = 0;
-      channel1.members.forEach((member) => {
-        member.voice.setChannel(waitRoom);
-        moveCount++;
+      waitRoom.members.forEach((member) => {
+        if (config.users.team1.includes(member.id)) {
+          member.voice.setChannel(channel1);
+          moveCount++;
+        } else if (config.users.team2.includes(member.id)) {
+          member.voice.setChannel(channel2);
+          moveCount++;
+        }
       });
-      channel2.members.forEach((member) => {
-        member.voice.setChannel(waitRoom);
-        moveCount++;
-      });
+
       moveCount && (embedColor = 0x00ff00);
       message =
         (locales[interaction.locale][1] ?? 'Moved ') +
         moveCount +
-        (locales[interaction.locale][2] ?? ' players to <#') +
-        waitRoom +
-        '>';
+        (locales[interaction.locale][2] ?? ' players');
     }
     await interaction.reply(conf.embedMessage(message, embedColor));
   },
