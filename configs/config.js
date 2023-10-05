@@ -14,9 +14,11 @@ const setConfig = (guildId, config) => {
 
 const getConfig = (guildId) => {
   var config;
+
   try {
     config = require(`./${guildId}.json`);
   } catch (error) {
+    if (guildId === undefined) throw 'guildId cannot be undefined';
     setConfig(guildId, {
       channels: { team1: '', team2: '', waitRoom: '' },
       users: { team1: [], team2: [] },
@@ -26,4 +28,20 @@ const getConfig = (guildId) => {
   return config;
 };
 
-module.exports = { getConfig: getConfig, setConfig: setConfig };
+const embedMessage = (message, color) => {
+  return {
+    embeds: [
+      {
+        color: color,
+        author: {
+          name: 'Customs discord bot',
+          icon_url: 'https://i.imgur.com/PSqNTSc.png',
+          url: 'https://discord.com/api/oauth2/authorize?client_id=768137231344468012&permissions=1497332444241&scope=bot',
+        },
+        description: message,
+      },
+    ],
+  };
+};
+
+module.exports = { setConfig, getConfig, embedMessage };

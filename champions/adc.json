@@ -1,24 +1,26 @@
 {
-    "champ": [
-        "Yasuo",
-        "Draven",
-        "Vayne",
-        "Kog'Maw",
-        "Jhin",
-        "Jinx",
-        "Kai'Sa",
-        "Kalista",
-        "Sivir",
-        "Miss Fortune",
-        "Lucian",
-        "Ezreal",
-        "Varus",
-        "Twitch",
-        "Caitlyn",
-        "Xayah",
-        "Ashe",
-        "Aphelios",
-        "Tristana",
-        "Samira"
-    ]
+  "champ": [
+    "Yasuo",
+    "Draven",
+    "Vayne",
+    "Kog'Maw",
+    "Jhin",
+    "Jinx",
+    "Kai'Sa",
+    "Kalista",
+    "Sivir",
+    "Miss Fortune",
+    "Lucian",
+    "Ezreal",
+    "Varus",
+    "Twitch",
+    "Caitlyn",
+    "Xayah",
+    "Ashe",
+    "Aphelios",
+    "Tristana",
+    "Samira",
+    "Zeri",
+    "Nilah"
+  ]
 }
