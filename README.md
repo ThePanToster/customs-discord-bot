@@ -10,9 +10,9 @@ Install [Docker](https://docs.docker.com/get-docker) and pull the image with:
 ```sh
 docker pull thepantoster/customsdiscordbot
 ```
-And then run a container replacing `[Your token]` with your actual bot token and `[Your bot's ID]` with your bot's ID:
+And then run a container replacing `[Your token]` with your actual bot token and `[Your bot ID]` with your bot's ID:
 ```sh
-docker run -e TOKEN=[Your token] -e CLIENTID=[Your bot's ID] docker.io/thepantoster/customsdiscordbot
+docker run -e TOKEN=[Your token] -e CLIENTID=[Your bot ID] docker.io/thepantoster/customsdiscordbot
 ```
 
 ## Run the bot manually
@@ -23,10 +23,10 @@ docker run -e TOKEN=[Your token] -e CLIENTID=[Your bot's ID] docker.io/thepantos
 - Discord bot token
 
 ### Setup
-Create `.env` file inside the repository replacing `[Your token]` with your actual bot token and `[Your bot's ID]` with your bot's ID that you can get by right clicking it in discord with dev mode on:
+Create `.env` file inside the repository replacing `[Your token]` with your actual bot token and `[Your bot ID]` with your bot's ID that you can get by right clicking it in discord with dev mode on:
 ```sh
 TOKEN = "[Your token]"
-CLIENTID = "[Your bot's ID]"
+CLIENTID = "[Your bot ID]"
 ```
 
 ### Launch
