@@ -33,4 +33,4 @@ jobs:
         port: ${{ secrets.CLOUD_VM_PORT }}
         key: ${{ secrets.CLOUD_VM_SSHKEY }}
         script: |
-          docker restart CustomsDiscordBot
+          sudo docker restart CustomsDiscordBot
