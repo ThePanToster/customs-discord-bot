@@ -5,7 +5,17 @@ A Discord bot created with [Discord.js](https://github.com/discordjs/discord.js)
 
 [https://discord.com/api/oauth2/authorize?client_id=768137231344468012&permissions=1497332444241&scope=bot](https://discord.com/api/oauth2/authorize?client_id=768137231344468012&permissions=1497332444241&scope=bot)
 
-## Clone the bot
+## Run the bot using docker
+Install [Docker](https://docs.docker.com/get-docker) and pull the image with:
+```sh
+docker pull thepantoster/customsdiscordbot
+```
+And then run a container replacing `[Your token]` with your actual bot token and `[Your bot's ID]` with your bot's ID:
+```sh
+docker run -e TOKEN=[Your token] -e CLIENTID=[Your bot's ID] docker.io/thepantoster/customsdiscordbot
+```
+
+## Run the bot manually
 
 ### Requirements
 - [Node.js](https://github.com/nodejs/node)
