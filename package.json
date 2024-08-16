@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node main.js",
     "deploycommands": "node deploy-commands.js",
-    "test": "jest --watchAll --verbose"
+    "test": "jest --verbose"
   },
   "author": "Albert Ząbkiewicz",
   "license": "ISC",
