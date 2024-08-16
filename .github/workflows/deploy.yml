@@ -1,0 +1,32 @@
+name: Deploy with SSH
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm ci
+
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.CLOUD_VM_IP }}
+          username: ${{ secrets.CLOUD_VM_USERNAME }}
+          port: ${{ secrets.CLOUD_VM_PORT }}
+          key: ${{ secrets.CLOUD_VM_SSHKEY }}
+          script: docker restart CustomsDiscordBot

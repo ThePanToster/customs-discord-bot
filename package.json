@@ -6,12 +6,12 @@
   "scripts": {
     "start": "node main.js",
     "deploycommands": "node deploy-commands.js",
-    "test": "jest --watchAll --verbose"
+    "test": "jest --verbose"
   },
   "author": "Albert Ząbkiewicz",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^14.7.1",
+    "discord.js": "^14.15.2",
     "dotenv": "^16.0.3",
     "js-yaml": "^3.13.1"
   },
